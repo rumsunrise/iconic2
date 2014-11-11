@@ -15,9 +15,8 @@ def createDirs(path):
             os.mkdir(path + current_path, 0755)
         except OSError:
             print "Directory " + current_path + " is already exists"
-    # end
 
-# end
+
 
 def makeDPI(icon):
     im = Image.open(icon)
@@ -41,7 +40,8 @@ def makeDPI(icon):
       
     xxhdpi_im = im.resize(xxhdpi, Image.ANTIALIAS)
     xxhdpi_im.save(os.path.dirname(os.path.abspath(icon)) + "/drawable-xxhdpi/" + os.path.basename(icon))
-# end
+
+
 
 def printHelpMessage():
     print "iconic2 is  a simple tool that generates icons for different dpi in android projects."
@@ -50,7 +50,7 @@ def printHelpMessage():
     print "iconic2.py /path/to/xxxhdpi/icons/"
     print " "
     print "-help : Displays this help message"
-# end
+
 
 
 def main():
@@ -76,8 +76,7 @@ def main():
         if os.path.isfile(fullname): # If it is a file...
             print "Processing: " + os.path.basename(fullname)
             makeDPI(fullname)
-        #end
-    # end
-# end
+
+
 
 main()
