@@ -55,12 +55,12 @@ def printHelpMessage():
 
 def main():
     
-    if len(sys.argv) == 2: # If there are two arguments: argv[0] and argv[1]
-        if sys.argv[1] == "-help": # And if this one is -help
+    if (len(sys.argv) == 2): # If there are two arguments: argv[0] and argv[1]
+        if (sys.argv[1] == "-help"): # And if this one is -help
             printHelpMessage()
             exit()
         else: # If not -help
-            if os.path.isdir(sys.argv[1]): # And if such a directory really exists
+            if (os.path.isdir(sys.argv[1])): # And if such a directory really exists
                 dir = sys.argv[1] # Go further and convert icons
             else:
                 print sys.argv[1] + " is not a directory or doesn't exist."
@@ -73,10 +73,11 @@ def main():
     names = os.listdir(dir) # List of files and directories
     for name in names:
         fullname = os.path.join(dir, name) # Getting full name
-        if os.path.isfile(fullname): # If it is a file...
+        if (os.path.isfile(fullname)): # If it is a file...
             print "Processing: " + os.path.basename(fullname)
             makeDPI(fullname)
 
 
 
-main()
+if __name__ == '__main__':
+    main()
