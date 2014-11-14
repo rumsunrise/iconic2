@@ -41,6 +41,7 @@ iconic2.py /path/to/xxxhdpi/icons/\n\n"""
 
     if arg:
         msg+="-help : Displays this help message"
+    print msg
     exit()
 
 def printDirErrorMessage():
