@@ -28,12 +28,6 @@ def makeDPI(icon):
         'xxxhdpi':(x, y)
     }
 
-    mdpi = (int(x*0.25), int(y*0.25))
-    hdpi = (int(x*0.375), int(y*0.375))
-    xhdpi = (int(x*0.5), int(y*0.5))
-    xxhdpi = (int(x*0.75), int(y*0.75))
-    xxxhdpi = (x, y)
-
     for size_name in sizes_list:
         size_im = im.resize(sizes_list[size_name], Image.ANTIALIAS)
         # The line below inserts drawable-*dpi into path, where generated icons are stored.
