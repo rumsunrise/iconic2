@@ -16,58 +16,53 @@ def createDirs(path):
         except OSError:
             print "Directory " + current_path + " is already exists"
 
-
-
 def makeDPI(icon):
     im = Image.open(icon)
     (x, y) = im.size
-     
+
+    sizes_list = {
+        'mdpi': (int(x*0.25), int(y*0.25)),
+        'hdpi':(int(x*0.375), int(y*0.375)),
+        'xhdpi':(int(x*0.5), int(y*0.5)),
+        'xxhdpi':(int(x*0.75), int(y*0.75)),
+        'xxxhdpi':(x, y)
+    }
+
     mdpi = (int(x*0.25), int(y*0.25))
     hdpi = (int(x*0.375), int(y*0.375))
     xhdpi = (int(x*0.5), int(y*0.5))
     xxhdpi = (int(x*0.75), int(y*0.75))
     xxxhdpi = (x, y)
-     
-    mdpi_im = im.resize(mdpi, Image.ANTIALIAS)
-    # The line below inserts drawable-*dpi into path, where generated icons are stored.
-    mdpi_im.save(os.path.dirname(os.path.abspath(icon)) + "/drawable-mdpi/" + os.path.basename(icon))
-     
-    hdpi_im = im.resize(hdpi, Image.ANTIALIAS)
-    hdpi_im.save(os.path.dirname(os.path.abspath(icon)) + "/drawable-hdpi/" + os.path.basename(icon))
-      
-    xhdpi_im = im.resize(xhdpi, Image.ANTIALIAS)
-    xhdpi_im.save(os.path.dirname(os.path.abspath(icon)) + "/drawable-xhdpi/" + os.path.basename(icon))
-      
-    xxhdpi_im = im.resize(xxhdpi, Image.ANTIALIAS)
-    xxhdpi_im.save(os.path.dirname(os.path.abspath(icon)) + "/drawable-xxhdpi/" + os.path.basename(icon))
 
+    for size_name in sizes_list:
+        size_im = im.resize(sizes_list[size_name], Image.ANTIALIAS)
+        # The line below inserts drawable-*dpi into path, where generated icons are stored.
+        size_im.save(os.path.dirname(os.path.abspath(icon)) + "/drawable-"+size_name+"/" + os.path.basename(icon))
 
+def printHelpMessage(arg=False):
 
-def printHelpMessage():
-    print "iconic2 is  a simple tool that generates icons for different dpi in android projects."
-    print " "
-    print "Usage:"
-    print "iconic2.py /path/to/xxxhdpi/icons/"
-    print " "
-    print "-help : Displays this help message"
+    msg = u"""iconic2 is  a simple tool that generates icons for different dpi in android projects.\n
+Usage:\n
+iconic2.py /path/to/xxxhdpi/icons/\n\n"""
 
+    if arg:
+        msg+="-help : Displays this help message"
+    exit()
 
+def printDirErrorMessage():
+    print sys.argv[1] + " is not a directory or doesn't exist."
+    exit()
 
 def main():
     
     if (len(sys.argv) == 2): # If there are two arguments: argv[0] and argv[1]
         if (sys.argv[1] == "-help"): # And if this one is -help
-            printHelpMessage()
-            exit()
+            printHelpMessage(True)
         else: # If not -help
-            if (os.path.isdir(sys.argv[1])): # And if such a directory really exists
-                dir = sys.argv[1] # Go further and convert icons
-            else:
-                print sys.argv[1] + " is not a directory or doesn't exist."
-                exit()
+            # And if such a directory really exists go further and convert icons
+            dir = sys.argv[1] if (os.path.isdir(sys.argv[1])) else printDirErrorMessage
     else: # If there is something strange
-        print "Usage: iconic2.py /path/to/xxxhdpi/icons/" # Just show help
-        exit()
+        printHelpMessage() # Just show help
     
     createDirs(dir)
     names = os.listdir(dir) # List of files and directories
