@@ -8,7 +8,7 @@ from PIL import Image
 
 def createDirs(path):
     
-    Dirs = ["drawable-mdpi", "drawable-hdpi", "drawable-xhdpi", "drawable-xxhdpi"]
+    Dirs = ["drawable-mdpi", "drawable-hdpi", "drawable-xhdpi", "drawable-xxhdpi", "drawable-xxxhdpi"]
     
     for current_path in Dirs:
         try:
