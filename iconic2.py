@@ -1,3 +1,4 @@
+
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
 
@@ -12,7 +13,7 @@ def createDirs(path):
     
     for current_path in Dirs:
         try:
-            os.mkdir(path + current_path, 0755)
+            os.mkdir(path + '/' +current_path, 0755)
         except OSError:
             print "Directory " + current_path + " is already exists"
 
